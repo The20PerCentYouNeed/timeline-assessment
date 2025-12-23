@@ -10,6 +10,114 @@ A Laravel-based REST API for managing recruitment timelines, tracking candidate 
 - **Laravel Sanctum** - API authentication
 - **Docker** - Containerization
 
+## Database Schema
+
+The following diagram illustrates the database structure and relationships:
+
+```mermaid
+erDiagram
+    users ||--o{ personal_access_tokens : has
+    recruiters ||--o{ candidates : manages
+    recruiters ||--o{ timelines : owns
+    recruiters ||--o{ steps : creates
+    recruiters ||--o{ step_statuses : tracks
+    candidates ||--o{ timelines : has
+    timelines ||--o{ steps : contains
+    step_categories ||--o{ steps : categorizes
+    steps ||--o{ step_statuses : has
+    status_categories ||--o{ step_statuses : defines
+
+    users {
+        bigint id PK
+        string name
+        string email UK
+        timestamp email_verified_at
+        string password
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    recruiters {
+        bigint id PK
+        string first_name
+        string last_name
+        string email UK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    candidates {
+        bigint id PK
+        bigint recruiter_id FK
+        string name
+        string surname
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    timelines {
+        bigint id PK
+        bigint recruiter_id FK
+        bigint candidate_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    step_categories {
+        bigint id PK
+        json title
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    status_categories {
+        bigint id PK
+        string title
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    steps {
+        bigint id PK
+        bigint recruiter_id FK
+        bigint timeline_id FK
+        bigint step_category_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    step_statuses {
+        bigint id PK
+        bigint step_id FK
+        bigint recruiter_id FK
+        bigint status_category_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    personal_access_tokens {
+        bigint id PK
+        bigint tokenable_id FK
+        string tokenable_type
+        string name
+        string token
+        string abilities
+        timestamp last_used_at
+        timestamp expires_at
+        timestamp created_at
+        timestamp updated_at
+    }
+```
+
+**Key Relationships:**
+- A **Recruiter** manages multiple **Candidates** and owns multiple **Timelines**
+- A **Candidate** can have multiple **Timelines** (different recruitment processes)
+- A **Timeline** contains multiple **Steps** (e.g., 1st Interview, Tech Assessment)
+- Each **Step** belongs to a **StepCategory** and can have multiple **StepStatuses** (status history)
+- Each **StepStatus** references a **StatusCategory** (Pending, Complete, Reject)
+- **Steps** have a unique constraint: one step category per timeline
+- All relationships use cascade delete for data integrity
+
 ## Prerequisites
 
 Before you begin, ensure you have the following installed:
