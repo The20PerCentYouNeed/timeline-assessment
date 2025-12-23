@@ -267,7 +267,7 @@ class TimelineAPITest extends TestCase
         ]);
 
         $response->assertStatus(422)
-            ->assertJsonPath('errors.timneline.0', 'Timeline does not belong to the candidate');
+            ->assertJsonPath('errors.timeline.0', 'Timeline does not belong to the candidate');
     }
 
     public function testCreateStepTimelineMustBelongToRecruiter(): void
@@ -319,7 +319,7 @@ class TimelineAPITest extends TestCase
         ]);
 
         $response->assertStatus(422)
-            ->assertJsonPath('errors.timneline.0', 'Timeline does not belong to the candidate');
+            ->assertJsonPath('errors.timeline.0', 'Timeline does not belong to the candidate');
     }
 
     public function testCreateStepCategoryUniqueness(): void

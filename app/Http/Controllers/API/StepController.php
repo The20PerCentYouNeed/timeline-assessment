@@ -18,7 +18,7 @@ class StepController extends Controller
 
         if ($timeline->candidate_id !== $data['candidate_id']) {
             throw ValidationException::withMessages([
-                'timneline' => 'Timeline does not belong to the candidate',
+                'timeline' => 'Timeline does not belong to the candidate',
             ]);
         }
 
