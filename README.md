@@ -12,87 +12,72 @@ A Laravel-based REST API for managing recruitment timelines, tracking candidate 
 
 ## Database Schema
 
-The following diagram illustrates the database structure and relationships:
+The following diagram shows the database tables and how they connect to each other:
 
 ```mermaid
 erDiagram
-    recruiters ||--o{ candidates : manages
-    recruiters ||--o{ timelines : owns
-    recruiters ||--o{ steps : creates
-    recruiters ||--o{ step_statuses : tracks
-    candidates ||--o{ timelines : has
-    timelines ||--o{ steps : contains
-    step_categories ||--o{ steps : categorizes
-    steps ||--o{ step_statuses : has
-    status_categories ||--o{ step_statuses : defines
+    recruiters ||--o{ candidates : ""
+    recruiters ||--o{ timelines : ""
+    recruiters ||--o{ steps : ""
+    recruiters ||--o{ step_statuses : ""
+    candidates ||--o{ timelines : ""
+    timelines ||--o{ steps : ""
+    step_categories ||--o{ steps : ""
+    steps ||--o{ step_statuses : ""
+    status_categories ||--o{ step_statuses : ""
 
     recruiters {
-        bigint id PK
-        string first_name
-        string last_name
-        string email UK
-        timestamp created_at
-        timestamp updated_at
+        id PK
+        first_name
+        last_name
+        email
     }
 
     candidates {
-        bigint id PK
-        bigint recruiter_id FK
-        string name
-        string surname
-        timestamp created_at
-        timestamp updated_at
+        id PK
+        recruiter_id FK
+        name
+        surname
     }
 
     timelines {
-        bigint id PK
-        bigint recruiter_id FK
-        bigint candidate_id FK
-        timestamp created_at
-        timestamp updated_at
+        id PK
+        recruiter_id FK
+        candidate_id FK
     }
 
     step_categories {
-        bigint id PK
-        json title
-        timestamp created_at
-        timestamp updated_at
+        id PK
+        title
     }
 
     status_categories {
-        bigint id PK
-        string title
-        timestamp created_at
-        timestamp updated_at
+        id PK
+        title
     }
 
     steps {
-        bigint id PK
-        bigint recruiter_id FK
-        bigint timeline_id FK
-        bigint step_category_id FK
-        timestamp created_at
-        timestamp updated_at
+        id PK
+        recruiter_id FK
+        timeline_id FK
+        step_category_id FK
     }
 
     step_statuses {
-        bigint id PK
-        bigint step_id FK
-        bigint recruiter_id FK
-        bigint status_category_id FK
-        timestamp created_at
-        timestamp updated_at
+        id PK
+        step_id FK
+        recruiter_id FK
+        status_category_id FK
     }
 ```
 
-**Key Relationships:**
-- A **Recruiter** manages multiple **Candidates** and owns multiple **Timelines**
-- A **Candidate** can have multiple **Timelines** (different recruitment processes)
-- A **Timeline** contains multiple **Steps** (e.g., 1st Interview, Tech Assessment)
-- Each **Step** belongs to a **StepCategory** and can have multiple **StepStatuses** (status history)
-- Each **StepStatus** references a **StatusCategory** (Pending, Complete, Reject)
-- **Steps** have a unique constraint: one step category per timeline
-- All relationships use cascade delete for data integrity
+**How it works:**
+- **Recruiter** → has many **Candidates** and **Timelines**
+- **Candidate** → has many **Timelines** (one candidate can have multiple recruitment processes)
+- **Timeline** → has many **Steps** (e.g., "1st Interview", "Tech Assessment")
+- **Step** → belongs to one **StepCategory** and has many **StepStatuses** (status history)
+- **StepStatus** → belongs to one **StatusCategory** (e.g., "Pending", "Complete", "Reject")
+- Each timeline can only have one step per step category (unique constraint)
 
 ## Prerequisites
 
