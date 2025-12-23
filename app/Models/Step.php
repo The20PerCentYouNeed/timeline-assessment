@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Step extends Model
 {
+    use HasFactory;
+
     protected $guarded = [];
 
     public function timeline()
@@ -30,6 +33,8 @@ class Step extends Model
 
     public function currentStatus()
     {
-        return $this->statuses()->latest()->first();
+        return $this->statuses()->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
+            ->first();
     }
 }

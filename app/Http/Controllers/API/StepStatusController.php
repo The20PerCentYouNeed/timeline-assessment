@@ -39,6 +39,6 @@ class StepStatusController extends Controller
             'status_category_id' => $data['status_category_id'],
         ]);
 
-        return new StepStatusResource($step);
+        return response()->json(new StepStatusResource($step), 201);
     }
 }
