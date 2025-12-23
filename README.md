@@ -6,7 +6,7 @@ A Laravel-based REST API for managing recruitment timelines, tracking candidate 
 
 - **Laravel 12** - PHP web framework
 - **Laravel Sail** - Docker-based development environment
-- **MySQL 8.4** - Database
+- **MySQL** - Database
 - **Laravel Sanctum** - API authentication
 - **Docker** - Containerization
 
