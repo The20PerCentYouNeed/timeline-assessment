@@ -97,20 +97,13 @@ cp .env.example .env
 
 **Important Environment Variables:**
 
-If you have other services running on the default ports, you may need to configure the following variables in your `.env` file:
+The `.env.example` file is pre-configured with the following settings to avoid port conflicts:
 
-- `APP_PORT=8080` - The port on which the Laravel application will be accessible. Set this if port 80 is already in use.
-- `FORWARD_DB_PORT=3307` - The port on your host machine that forwards to MySQL inside the container. Set this if port 3306 is already in use.
+- `APP_PORT=8080` - The port on which the Laravel application will be accessible
+- `FORWARD_DB_PORT=3307` - The port on your host machine that forwards to MySQL inside the container
+- `APP_URL=http://localhost:8080` - The base URL for the application
 
-**Example `.env` configuration:**
-
-```env
-APP_PORT=8080
-FORWARD_DB_PORT=3307
-APP_URL=http://localhost:8080
-```
-
-These settings allow the application to run alongside other services without port conflicts.
+These values are already set in `.env.example`, so after copying it to `.env`, you're ready to go. If you need to change these ports (e.g., if 8080 or 3307 are already in use), simply update the values in your `.env` file.
 
 ### 3. Install Dependencies
 
