@@ -16,7 +16,6 @@ The following diagram illustrates the database structure and relationships:
 
 ```mermaid
 erDiagram
-    users ||--o{ personal_access_tokens : has
     recruiters ||--o{ candidates : manages
     recruiters ||--o{ timelines : owns
     recruiters ||--o{ steps : creates
@@ -26,16 +25,6 @@ erDiagram
     step_categories ||--o{ steps : categorizes
     steps ||--o{ step_statuses : has
     status_categories ||--o{ step_statuses : defines
-
-    users {
-        bigint id PK
-        string name
-        string email UK
-        timestamp email_verified_at
-        string password
-        timestamp created_at
-        timestamp updated_at
-    }
 
     recruiters {
         bigint id PK
@@ -91,19 +80,6 @@ erDiagram
         bigint step_id FK
         bigint recruiter_id FK
         bigint status_category_id FK
-        timestamp created_at
-        timestamp updated_at
-    }
-
-    personal_access_tokens {
-        bigint id PK
-        bigint tokenable_id FK
-        string tokenable_type
-        string name
-        string token
-        string abilities
-        timestamp last_used_at
-        timestamp expires_at
         timestamp created_at
         timestamp updated_at
     }
