@@ -439,7 +439,22 @@ class TimelineAPITest extends TestCase
             'recruiter_id' => $recruiter->id,
         ]);
 
-        $response->assertStatus(201);
+        $response->assertStatus(201)
+            ->assertJsonStructure([
+                'data' => [
+                    'id',
+                    'step_id',
+                    'recruiter_id',
+                    'status_category_id',
+                    'created_at',
+                    'updated_at',
+                ],
+            ]);
+
+        $responseData = $response->json('data');
+        $this->assertEquals($step->id, $responseData['step_id']);
+        $this->assertEquals($statusCategory->id, $responseData['status_category_id']);
+        $this->assertEquals($recruiter->id, $responseData['recruiter_id']);
 
         $this->assertDatabaseHas('step_statuses', [
             'step_id' => $step->id,
@@ -634,7 +649,17 @@ class TimelineAPITest extends TestCase
             'recruiter_id' => $recruiter->id,
         ]);
 
-        $response->assertStatus(201);
+        $response->assertStatus(201)
+            ->assertJsonStructure([
+                'data' => [
+                    'id',
+                    'step_id',
+                    'recruiter_id',
+                    'status_category_id',
+                    'created_at',
+                    'updated_at',
+                ],
+            ]);
     }
 
     public function testGetTimelineSuccess(): void

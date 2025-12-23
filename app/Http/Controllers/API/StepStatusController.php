@@ -34,11 +34,11 @@ class StepStatusController extends Controller
             ]);
         }
 
-        $step->statuses()->create([
+        $status = $step->statuses()->create([
             'recruiter_id' => $step->recruiter_id,
             'status_category_id' => $data['status_category_id'],
         ]);
 
-        return response()->json(new StepStatusResource($step), 201);
+        return new StepStatusResource($status);
     }
 }
