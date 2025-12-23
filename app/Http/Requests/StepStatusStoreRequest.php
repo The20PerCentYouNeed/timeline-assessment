@@ -11,7 +11,7 @@ class StepStatusStoreRequest extends FormRequest
         return [
             'candidate_id' => 'required|exists:candidates,id',
             'recruiter_id' => 'required|exists:recruiters,id',
-            'step_category_id' => 'required|exists:step_categories,id',
+            'timeline_id' => 'required|exists:timelines,id',
             'status_category_id' => 'required|exists:status_categories,id',
         ];
     }
