@@ -77,7 +77,6 @@ Before you begin, ensure you have the following installed:
 
 - **Docker Desktop** - Must be installed and running
 - **Git** - For cloning the repository
-- Basic knowledge of Laravel and REST APIs
 
 ## Installation & Setup
 
