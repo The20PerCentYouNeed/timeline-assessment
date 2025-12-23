@@ -71,14 +71,6 @@ erDiagram
     }
 ```
 
-**How it works:**
-- **Recruiter** → has many **Candidates** and **Timelines**
-- **Candidate** → has many **Timelines** (one candidate can have multiple recruitment processes)
-- **Timeline** → has many **Steps** (e.g., "1st Interview", "Tech Assessment")
-- **Step** → belongs to one **StepCategory** and has many **StepStatuses** (status history)
-- **StepStatus** → belongs to one **StatusCategory** (e.g., "Pending", "Complete", "Reject")
-- Each timeline can only have one step per step category (unique constraint)
-
 ## Prerequisites
 
 Before you begin, ensure you have the following installed:
