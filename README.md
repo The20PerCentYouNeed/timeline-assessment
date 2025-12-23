@@ -27,47 +27,47 @@ erDiagram
     status_categories ||--o{ step_statuses : ""
 
     recruiters {
-        id PK
-        first_name
-        last_name
-        email
+        int id PK
+        string first_name
+        string last_name
+        string email
     }
 
     candidates {
-        id PK
-        recruiter_id FK
-        name
-        surname
+        int id PK
+        int recruiter_id FK
+        string name
+        string surname
     }
 
     timelines {
-        id PK
-        recruiter_id FK
-        candidate_id FK
+        int id PK
+        int recruiter_id FK
+        int candidate_id FK
     }
 
     step_categories {
-        id PK
-        title
+        int id PK
+        string title
     }
 
     status_categories {
-        id PK
-        title
+        int id PK
+        string title
     }
 
     steps {
-        id PK
-        recruiter_id FK
-        timeline_id FK
-        step_category_id FK
+        int id PK
+        int recruiter_id FK
+        int timeline_id FK
+        int step_category_id FK
     }
 
     step_statuses {
-        id PK
-        step_id FK
-        recruiter_id FK
-        status_category_id FK
+        int id PK
+        int step_id FK
+        int recruiter_id FK
+        int status_category_id FK
     }
 ```
 
